@@ -1,0 +1,21 @@
+.game-list-container {
+  margin: 20px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.game-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.game-thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
