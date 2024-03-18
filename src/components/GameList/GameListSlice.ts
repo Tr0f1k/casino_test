@@ -26,7 +26,9 @@ const initialState: GameListState = {
 
 export const fetchGames = createAsyncThunk('gameList/fetchGames', async () => {
   try {
-    const response = await fetch('http://localhost:3001/gamedata');
+    const response = await fetch(
+      'https://casino-test-back.vercel.app/gamedata',
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch games');
     }

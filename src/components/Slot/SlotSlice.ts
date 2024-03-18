@@ -2,7 +2,7 @@
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const SPIN_ENDPOINT_URL = 'http://localhost:3001/spin';
+const SPIN_ENDPOINT_URL = 'https://casino-test-back.vercel.app/spin';
 
 interface SlotState {
   spinResults: string[];
