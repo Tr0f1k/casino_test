@@ -2,8 +2,9 @@
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const SPIN_ENDPOINT_URL = 'https://casino-test-back.vercel.app/spin';
+const SPIN_ENDPOINT_URL = 'https://casino-test-back.vercel.app/spin'; // Endpoint URL for spinning the slot
 
+// Defining the structure of slot
 interface SlotState {
   spinResults: string[];
   coins: number;
@@ -11,6 +12,7 @@ interface SlotState {
   errorMessage: string;
 }
 
+// Defining initial state for slot
 const initialState: SlotState = {
   spinResults: [],
   coins: 20,
@@ -18,24 +20,26 @@ const initialState: SlotState = {
   errorMessage: '',
 };
 
+// Async thunk for spinning the slot
 export const spin = createAsyncThunk('slot/spin', async () => {
   try {
-    const response = await fetch(SPIN_ENDPOINT_URL);
+    const response = await fetch(SPIN_ENDPOINT_URL); // Fetching spin data from the backend
     if (!response.ok) {
       throw new Error('Failed to spin');
     }
-    const data = await response.json();
-    return { spinResults: data.spinResults, coinsWon: data.coinsWon };
+    const data = await response.json(); // Parsing response data
+    return { spinResults: data.spinResults, coinsWon: data.coinsWon }; // Returning spin results and coins won
   } catch (error) {
     throw error;
   }
 });
 
+// Creating a slice for the slot
 const slotSlice = createSlice({
-  name: 'slot',
-  initialState,
+  name: 'slot', // Name of the slice
+  initialState, // Initial state
   reducers: {
-    // -
+    // No additional reducers defined
   },
   extraReducers: (builder) => {
     builder
@@ -43,11 +47,11 @@ const slotSlice = createSlice({
         spin.fulfilled,
         (
           state,
-          action: PayloadAction<{ spinResults: string[]; coinsWon: number }>,
+          action: PayloadAction<{ spinResults: string[]; coinsWon: number }>, // Payload action with spin results and coins won
         ) => {
-          state.spinResults = action.payload.spinResults;
-          state.coins += action.payload.coinsWon - 1;
-          state.coinsWon = action.payload.coinsWon;
+          state.spinResults = action.payload.spinResults; // Updating spin results
+          state.coins += action.payload.coinsWon - 1; // Updating number of coins (subtracting 1 for each spin)
+          state.coinsWon = action.payload.coinsWon; // Updating number of coins won
           state.errorMessage = '';
         },
       )

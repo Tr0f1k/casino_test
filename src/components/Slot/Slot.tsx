@@ -4,14 +4,17 @@ import { RootState } from '../Store';
 import { AppDispatch } from '../Store';
 import { spin } from './SlotSlice';
 
+// Functional component for the slot machine
 const Slot: React.FC = () => {
+  // Selecting relevant state variables using useSelector hook
   const { spinResults, coins, coinsWon, errorMessage } = useSelector(
-    (state: RootState) => state.slot,
+    (state: RootState) => state.slot, // Extracting state values from RootState using useSelector
   );
-  const dispatch: AppDispatch = useDispatch();
-
+  // Getting dispatch function using useDispatch hook
+  const dispatch: AppDispatch = useDispatch(); // Defining dispatch type as AppDispatch
+  // Asynchronous function to handle spin action
   const handleSpin = async () => {
-    await dispatch(spin());
+    await dispatch(spin()); // Dispatching the spin action to Redux store
   };
 
   return (

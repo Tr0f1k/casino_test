@@ -7,22 +7,37 @@ import { RootState } from '../Store';
 import './GameList.css';
 
 const GameList: React.FC = () => {
-  const dispatch = useDispatch<ThunkDispatch<RootState, undefined, Action>>();
+  const dispatch = useDispatch<ThunkDispatch<RootState, undefined, Action>>(); // Creating a dispatch function
   const searchQuery = useSelector(
     (state: RootState) => state.gameList.searchQuery,
   );
-  const games = useSelector((state: RootState) => state.gameList.games);
-  const status = useSelector((state: RootState) => state.gameList.status);
-  const error = useSelector((state: RootState) => state.gameList.error);
+  const games = useSelector((state: RootState) => state.gameList.games); // Getting games array from the Redux store
+  const status = useSelector((state: RootState) => state.gameList.status); // Getting status from the Redux store
+  const error = useSelector((state: RootState) => state.gameList.error); // Getting error message from the Redux store
 
+  // useEffect hook to dispatch fetchGames action when the component mounts
   useEffect(() => {
     dispatch(fetchGames());
-  }, [dispatch]); // Fetch games only once when component mounts
+  }, [dispatch]);
 
+  // Event handler for handling search input change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchQuery(event.target.value));
+    const { value } = event.target;
+    const isValidInput = /^[a-zA-Z0-9]*$/.test(value); // Regular expression to match only English letters and numbers
+
+    if (isValidInput && value.length <= 50) {
+      // Checking if the input value is valid and its length doesn't exceed 50 characters
+      dispatch(setSearchQuery(value));
+    } else if (!isValidInput) {
+      console.error(
+        'Search query should contain only English letters and numbers (0-9)',
+      );
+    } else {
+      console.error('Search query length cannot exceed 50 characters');
+    }
   };
 
+  // Filtering games based on the search query
   const filteredGames = games.filter((game) =>
     game.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
