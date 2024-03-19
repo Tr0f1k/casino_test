@@ -21,6 +21,7 @@
   flex: 0 0 calc(20rem - 20px);
   margin: 10px;
   background-color: brown;
+  border-radius: 1rem;
 }
 
 .game-item.with-start-url {
@@ -28,7 +29,15 @@
 }
 
 .game-thumb {
-  width: 5rem;
-  height: 5rem;
+  width: 12rem;
+  height: 12rem;
   object-fit: cover;
+}
+
+h2 {
+  padding-top: 1rem;
+  height: 3.2rem;
+  line-height: 1.6rem;
+  overflow: hidden;
+  margin: 0;
 }

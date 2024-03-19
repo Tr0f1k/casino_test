@@ -23,13 +23,13 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
       className={`game-item${game.startUrl ? ' with-start-url' : ''}`}
       onClick={handleGameClick}
     >
-      <h2>{game.title}</h2>
-      <p>Provider: {game.providerName}</p>
       {game.thumb ? (
         <img src={game.thumb.url} alt={game.title} className="game-thumb" />
       ) : (
         <img src={no_image} alt={game.title} className="game-thumb" />
       )}
+      <h2>{game.title}</h2>
+      <p>Provider: {game.providerName}</p>
     </div>
   );
 };
