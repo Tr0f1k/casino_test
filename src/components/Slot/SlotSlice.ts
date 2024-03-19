@@ -21,7 +21,7 @@ const initialState: SlotState = {
   errorMessage: '',
 };
 
-// Async thunk for spinning the slot
+// AsyncThunk for spinning the slot
 export const spin = createAsyncThunk('slot/spin', async () => {
   try {
     const response = await fetch(SPIN_ENDPOINT_URL);

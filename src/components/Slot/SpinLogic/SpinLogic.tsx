@@ -18,7 +18,7 @@ const fruitImages: Record<string, string> = {
 };
 
 const SpinLogic: React.FC = () => {
-  // Accessing the state from the slice
+  // Accessing the state from the SlotSlice
   const { spinResults, coins, coinsWon, errorMessage } = useSelector(
     (state: RootState) => state.slot,
   );
@@ -49,20 +49,20 @@ const SpinLogic: React.FC = () => {
                 <img
                   src={fruitImages[result]}
                   alt={result}
-                  className="fruit-image"
+                  className={`fruit-image ${coinsWon > 0 ? 'green-background' : ''}`}
                 />
               </div>
             ))
           ) : (
             <>
               <div className="fruit-image-wrapper">
-                <img src={lemonPic} alt="Cherry" className="fruit-image" />
+                <img src={lemonPic} alt="Lemon" className="fruit-image" />
               </div>
               <div className="fruit-image-wrapper">
-                <img src={applePic} alt="Cherry" className="fruit-image" />
+                <img src={applePic} alt="Apple" className="fruit-image" />
               </div>
               <div className="fruit-image-wrapper">
-                <img src={bananaPic} alt="Cherry" className="fruit-image" />
+                <img src={bananaPic} alt="Banana" className="fruit-image" />
               </div>
             </>
           )}
