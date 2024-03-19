@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# Kanon Gaming Test - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In this folder, you can find the frontend for solving the test assignment
 
-## Available Scripts
+## Stack
 
-In the project directory, you can run:
+- React
+- Redux
+- React-Router
+- TypeScript
+- eslint and prettier
 
-### `npm start`
+## Setup
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This backend application was deployed on 'Vercel' cloud service and is accessible via this link: https://casino-test-pearl.vercel.app/ , so there is no need to set up anything to work with this application.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Description
 
-### `npm test`
+To solve all three questions efficiently, I have decided to make two separate pages for each of them. Solution for question 1 and 2 can be found on '/gamelist' page, and solution for question 3 can be found on '/slot' page. In order to achieve this page separation, I have utilised React-Router. On my last day of working with this project, I have decided to add additional functionality that was not listed in the requirements but sounded reasonable to have in such application. I will go over my additions at each component description 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Structure
 
-### `npm run build`
+- src
+  - components
+    - GameList
+      - GameCard
+      - SearchBar
+      - GameList
+      - GameListSlice
+    - Shared
+      - AppNavBar
+      - AppTitle
+    - Slot
+      - RewardList
+      - SpinLogic
+      - Slot
+      - SlotSlice
+    - Store
+  - img
+  - App
+  - Index
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Shared
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+'Shared' folder contains components that I import on both of my pages. 'AppNavBar' component is responsible for the buttons used to navigate from one page to another, and 'AppTitle' is responsible for outputting the title of the page by passing the desired title as a prop
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Additions
 
-### `npm run eject`
+Both of these components were not listed as requirements, but it makes sense to have them in this application based on my approach, because it is easier and more optimal to import the same component twice rather than writing the same code twice
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## GameList
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+'GameList' folder contains solution to the first two questions from the assignment. In the parent component of the page ('GameList'), alongside imports from the 'Shared' folder, the imported 'GameCard' component displays all the game data fetched from the backend, and the imported 'SearchBar' component handles the search functionality. 'GameListSlice' component is used for Redux state management.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Additions
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- A placeholder picture in case if the game does not have a 'thumb.url' property
+- Ability to access the game by pressing on its' card if it has a 'startUrl' property (These game cards have green background instead of brown)
+- Very basic styling
 
-## Learn More
+## Slot
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+'Slot' folder contains solution for the third question from the assignment. In the parent component of the page ('Slot'), alongside imports from the 'Shared' folder, the imported 'SpinLogic' component displays results of the spin, amount of coins that user won, and the amount of coins that user currently has, and the imported 'RewardList' component displays basic rules of the game and which combinations reward the user. 'SlotSlice' component is used for Redux state management.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Additions
+
+- Outputting the spin result as pictures of corresponding fruits
+- In case if user runs out of coins, the 'Add Coins' button will appear and user can get extra 20 coins (I am aware that in the real online casino you have to pay money to get extra coins, but it is still possible, so I've decided to add this)
+- List with all combinations that result in a coin reward
+- Very basic styling
+
+## img
+
+'img' folder contains five images that are used on the frontend: four png's of fruits and a placeholder for the game picture that says 'No Image Found'

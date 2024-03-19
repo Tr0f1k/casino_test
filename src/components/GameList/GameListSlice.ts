@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 // Defining the structure of a single game object
-interface Game {
+export interface Game {
   id: string;
   slug: string;
   title: string;
@@ -9,6 +9,7 @@ interface Game {
   thumb: {
     url: string;
   } | null;
+  startUrl?: string;
 }
 
 // Defining the structure of the game list state

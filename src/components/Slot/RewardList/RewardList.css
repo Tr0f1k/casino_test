@@ -1,0 +1,23 @@
+.rewards-container {
+    background-color: brown;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.reward-row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
+.reward {
+    display: flex;
+    align-items: center;
+}
+
+.reward img {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 1rem;
+}

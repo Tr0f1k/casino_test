@@ -1,0 +1,18 @@
+.nav-buttons {
+    display: flex;
+  }
+  
+  .nav-buttons button {
+    background-color: brown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .nav-buttons button.active {
+    background-color: #8b4513;
+  }
+  

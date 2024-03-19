@@ -2,7 +2,8 @@
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const SPIN_ENDPOINT_URL = 'https://casino-test-back.vercel.app/spin'; // Endpoint URL for spinning the slot
+// Endpoint URL for spinning the slot
+const SPIN_ENDPOINT_URL = 'https://casino-test-back.vercel.app/spin';
 
 // Defining the structure of slot
 interface SlotState {
@@ -12,7 +13,7 @@ interface SlotState {
   errorMessage: string;
 }
 
-// Defining initial state for slot
+// Defining initial state for slot machine
 const initialState: SlotState = {
   spinResults: [],
   coins: 20,
@@ -23,21 +24,33 @@ const initialState: SlotState = {
 // Async thunk for spinning the slot
 export const spin = createAsyncThunk('slot/spin', async () => {
   try {
-    const response = await fetch(SPIN_ENDPOINT_URL); // Fetching spin data from the backend
+    const response = await fetch(SPIN_ENDPOINT_URL);
     if (!response.ok) {
       throw new Error('Failed to spin');
     }
-    const data = await response.json(); // Parsing response data
-    return { spinResults: data.spinResults, coinsWon: data.coinsWon }; // Returning spin results and coins won
+    const data = await response.json();
+    return { spinResults: data.spinResults, coinsWon: data.coinsWon };
   } catch (error) {
     throw error;
   }
 });
 
+// Action for adding coins
+export const addCoins = createSlice({
+  name: 'slot/addCoins',
+  initialState,
+  reducers: {
+    // Reducer to add coins to the current count
+    addCoinsToCount(state, action: PayloadAction<number>) {
+      state.coins += action.payload;
+    },
+  },
+});
+
 // Creating a slice for the slot
 const slotSlice = createSlice({
-  name: 'slot', // Name of the slice
-  initialState, // Initial state
+  name: 'slot',
+  initialState,
   reducers: {
     // No additional reducers defined
   },
@@ -57,6 +70,9 @@ const slotSlice = createSlice({
       )
       .addCase(spin.rejected, (state, action) => {
         state.errorMessage = action.error.message || 'Unknown error occurred';
+      })
+      .addCase(addCoins.actions.addCoinsToCount, (state, action) => {
+        state.coins += action.payload; // Adding specified number of coins to the current count
       });
   },
 });
