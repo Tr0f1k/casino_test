@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Endpoint URL for spinning the slot
 const SPIN_ENDPOINT_URL = 'https://casino-test-back.vercel.app/spin';
+const SPIN_ENDPOINT_URL_LOCAL = 'http://localhost:3001/spin';
 
 // Defining the structure of slot
 interface SlotState {
@@ -26,12 +27,24 @@ export const spin = createAsyncThunk('slot/spin', async () => {
   try {
     const response = await fetch(SPIN_ENDPOINT_URL);
     if (!response.ok) {
-      throw new Error('Failed to spin');
+      throw new Error('Failed to get spin data from cloud platform');
     }
     const data = await response.json();
     return { spinResults: data.spinResults, coinsWon: data.coinsWon };
   } catch (error) {
-    throw error;
+    try {
+      const response = await fetch(SPIN_ENDPOINT_URL_LOCAL);
+      if (!response.ok) {
+        throw new Error('Failed to spin');
+      }
+      const data = await response.json();
+      return { spinResults: data.spinResults, coinsWon: data.coinsWon };
+    } catch (error) {
+      console.error('Error fetching data from localhost:', error);
+      throw new Error(
+        'Failed to fetch games from both cloud platform and localhost',
+      );
+    }
   }
 });
 

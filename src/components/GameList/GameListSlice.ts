@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
+const GAMEDATA_ENDPOINT_URL = 'https://casino-test-back.vercel.app/gamedata';
+const GAMEDATA_ENDPOINT_URL_LOCAL = 'http://localhost:3001/gamedata';
+
 // Defining the structure of a single game object
 export interface Game {
   id: string;
@@ -17,7 +20,7 @@ interface GameListState {
   searchQuery: string;
   games: Game[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed'; // Status to manage async operations
-  error: string | null; // Error message if fetching games fails
+  error: string | null;
 }
 
 // Defining the initial state for the game list
@@ -28,13 +31,11 @@ const initialState: GameListState = {
   error: null,
 };
 
-// Async thunk to fetch games from the backend
+// Async thunk to fetch games from the backend with fallback to localhost
 export const fetchGames = createAsyncThunk('gameList/fetchGames', async () => {
   try {
     // Attempting to fetch games data from the backend API
-    const response = await fetch(
-      'https://casino-test-back.vercel.app/gamedata',
-    );
+    const response = await fetch(GAMEDATA_ENDPOINT_URL);
     if (!response.ok) {
       throw new Error('Failed to fetch games');
     }
@@ -42,7 +43,21 @@ export const fetchGames = createAsyncThunk('gameList/fetchGames', async () => {
     const data = await response.json();
     return data as Game[];
   } catch (error) {
-    throw new Error('An error occurred while fetching games');
+    console.error('Error fetching data from cloud platform:', error);
+    // If fetching from cloud platform fails, attempt to fetch from localhost
+    try {
+      const response = await fetch(GAMEDATA_ENDPOINT_URL_LOCAL);
+      if (!response.ok) {
+        throw new Error('Failed to fetch games from localhost');
+      }
+      const data = await response.json();
+      return data as Game[];
+    } catch (error) {
+      console.error('Error fetching data from localhost:', error);
+      throw new Error(
+        'Failed to fetch games from both cloud platform and localhost',
+      );
+    }
   }
 });
 

@@ -12,7 +12,16 @@ In this folder, you can find the frontend for solving the test assignment
 
 ## Setup
 
-This backend application was deployed on 'Vercel' cloud service and is accessible via this link: https://casino-test-pearl.vercel.app/ , so there is no need to set up anything to work with this application.
+This backend application was deployed on 'Vercel' cloud service and is accessible via this link: https://casino-test-pearl.vercel.app/ , so there is no need to set up anything to work with this application. But, if you want to try running the frontend locally, it is possible. In order to do so, you need to run usual commands for running a React app:
+
+```
+npm i --force
+npm run start
+```
+
+### Explanation
+
+Because of some version conflicts, you need to use the 'force' flag. Unfortunately, I was not able to resolve those exact dependency issues without losing functionality of my project.
 
 ## Description
 
@@ -71,4 +80,4 @@ Both of these components were not listed as requirements, but it makes sense to 
 
 ## img
 
-'img' folder contains five images that are used on the frontend: four png's of fruits and a placeholder for the game picture that says 'No Image Found'
+'img' folder contains five images that are used on the frontend: four png's of fruits used in SpinLogic and a placeholder for the game picture that says 'No Image Found'
