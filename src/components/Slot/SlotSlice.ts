@@ -3,7 +3,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Endpoint URL for spinning the slot
-const SPIN_ENDPOINT_URL = '';
+const SPIN_ENDPOINT_URL = 'https://casino-test-back.vercel.app/spin';
 const SPIN_ENDPOINT_URL_LOCAL = 'http://localhost:3001/spin';
 
 // Defining the structure of slot

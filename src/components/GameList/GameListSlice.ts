@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-const GAMEDATA_ENDPOINT_URL = '';
+const GAMEDATA_ENDPOINT_URL = 'https://casino-test-back.vercel.app/gamedata';
 const GAMEDATA_ENDPOINT_URL_LOCAL = 'http://localhost:3001/gamedata';
 
 // Defining the structure of a single game object
